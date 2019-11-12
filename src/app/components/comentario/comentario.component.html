@@ -1,0 +1,17 @@
+<div>
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <img class="foto-perfil" [style]="(comentario.usuario.fotoPerfil | fotoperfil: comentario.usuario.id) | domSanitizer" />
+      </ion-avatar>
+      <ion-label>
+        <h2 class="texto-nombre">{{ comentario.usuario.nombre }} {{ comentario.usuario.apellidos }}</h2>
+        <p class="texto-tiempo">{{ comentario.fechaCreacion | tiempoPost }}</p>
+      </ion-label>
+    </ion-item>
+  
+    <ion-item lines="none">
+      <ion-label class="texto-mensaje">
+        {{comentario.mensaje}}
+      </ion-label>
+    </ion-item>  
+</div>

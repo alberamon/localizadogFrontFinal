@@ -1,0 +1,38 @@
+
+.foto-perfil {
+    width: 90%;
+    height: 90%;
+
+    // background-color: red;
+
+    /* Full height */
+    // height: 100%; 
+
+    /* Imagen centrada y colocada de forma elegante */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.texto-tiempo {
+    font-size: 10px;
+}
+
+.texto-nombre {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.texto-mensaje {
+    font-size: 12px;
+}
+
+.boton-atras {
+    font-weight: bold;
+}
+
+.boton-publicar {
+    --background: transparent;
+    --background-activated: #F0F3F4;
+}

@@ -1,0 +1,62 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-title>
+      Nuevo Post
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="crearPost()"
+                  [disabled]="post.mensaje.length < 1 || cargandoGeolocalizacion"
+                  color="primary">
+        Compartir
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-item>
+      <ion-label position="floating">Mensaje</ion-label>
+      <ion-textarea [(ngModel)]="post.mensaje"></ion-textarea>
+    </ion-item>
+
+    <ion-list>
+      <ion-item>
+        <ion-label>Posición actual</ion-label>
+        <ion-spinner name="lines-small"
+                     *ngIf="cargandoGeolocalizacion"></ion-spinner>
+        <ion-toggle slot="end"
+                    [(ngModel)]="toogleGeo"
+                    (ionChange)="getGeolocalizacion()"></ion-toggle>
+      </ion-item>
+    </ion-list>
+
+
+  <ion-row>
+    <ion-col size="6">
+      <ion-button expand="full"
+                  shape="round"
+                  (click)="abrirCamara()">
+        <ion-icon slot="start" name="camera"></ion-icon>
+        Cámara
+      </ion-button>
+    </ion-col>
+    <ion-col size="6">
+      <ion-button expand="full"
+                  shape="round"
+                  (click)="abrirGaleria()">
+        <ion-icon slot="start" name="images"></ion-icon>
+        Galería
+      </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col size="6" *ngFor="let image of imagenesTemp">
+      <ion-card>
+        <img [src]="image | imageSanitizer">
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

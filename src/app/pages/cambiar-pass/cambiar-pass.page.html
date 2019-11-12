@@ -1,0 +1,60 @@
+<ion-item lines="none" class="logo">
+    <ion-title>
+      <img src="./assets/logo.png">
+    </ion-title>
+</ion-item>   
+
+<ion-content>
+    <ion-grid fixed> 
+      <form (ngSubmit)="cambiarPass()">
+        <ion-row> 
+            <ion-col>   
+                <ion-list>
+                  <ion-item lines="none">
+                    <ion-label class="texto-seguridad">Por seguridad introduzca una nueva contraseña.</ion-label>
+                  </ion-item>
+                  <ion-item>
+                              <ion-input  name="password"
+                                          type="password"
+                                             inputmode="password"
+                                             pattern="^$|^[A-Za-z0-9]+"
+                                             minlength=4
+                                             maxlength=12
+                                             placeholder="Contraseña"
+                                             [(ngModel)]="password"
+                                             required></ion-input>
+                              </ion-item>
+
+                              <ion-item>
+                                  <ion-input name="repetirPassword"
+                                             type="password"
+                                             inputmode="password"
+                                             pattern="^$|^[A-Za-z0-9]+"
+                                             minlength=4
+                                             maxlength=12
+                                             placeholder="Repetir contraseña"
+                                             [(ngModel)]="repetirPassword"
+                                             (ionChange)="comprobarPass()"
+                                             required></ion-input>     
+                              </ion-item>
+                              <ion-item *ngIf="!boolPass" lines="none">
+                                <ion-label class="texto-label">{{ textoPassword }}</ion-label>
+                              </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+  
+            <ion-row>
+              <ion-col padding-top>
+                <ion-button type="submit"
+                            color="primary"
+                            expand="full"
+                            shape="round"
+                            [disabled]="!habilitarBoton">
+                  Cambiar contraseña
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </form>
+        </ion-grid>
+</ion-content>

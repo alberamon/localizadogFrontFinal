@@ -1,0 +1,60 @@
+<div class="post">
+
+  <ion-item lines="none">
+    <ion-avatar slot="start">
+      <img class="foto-perfil" [style]="(post.usuario.fotoPerfil | fotoperfil: post.usuario.id) | domSanitizer" />
+    </ion-avatar>
+    <ion-label>
+      <h2 class="texto-nombre">{{ post.usuario.nombre }} {{ post.usuario.apellidos }}</h2>
+      <p class="texto-tiempo">{{ post.fechaCreacion | tiempoPost }}</p>
+      <p *ngIf="permLoc" class="texto-distancia">{{ distanciaTotal }}</p>
+    </ion-label>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="post.usuario.id === usuario.id" (click)="mostrarOpciones($event)">
+          <ion-icon name="more"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-item>
+
+  <ion-slides pager="true" *ngIf="post.imagenes !== null && post.imagenes.length > 1">
+    <ion-slide class="image-slide"
+               *ngFor="let img of post.imagenes"
+               [style]="(img | imagen: post.id) | domSanitizer">
+    </ion-slide>
+  </ion-slides>
+
+  <ion-slides *ngIf="post.imagenes !== null && post.imagenes.length === 1" [options]="slideFotoSola">
+    <ion-slide class="image-slide"
+               [style]="(post.imagenes | imagen: post.id) | domSanitizer">
+    </ion-slide>
+  </ion-slides>
+
+  <app-mapa  *ngIf="mostrarUbicacion" [latitud]="post.latitud" [longitud]="post.longitud"></app-mapa>
+
+  <ion-item class="ion-float-right" *ngIf="post.latitud && post.longitud" lines="none">
+    <ion-label class="texto-mostrar-ubicacion">Mostrar ubicación</ion-label>
+    <ion-toggle [(ngModel)]="mostrarUbicacion"></ion-toggle>
+  </ion-item>
+
+  <ion-item lines="none">
+    <ion-buttons>
+      <ion-button (click)="agregarFavorito()" slot="start">
+          <ion-icon #favorito [color]="post.favorito ? 'danger' : 'dark'" slot="icon-only" name="heart"></ion-icon>
+      </ion-button>
+      <ion-button (click)="mostrarComentarios()" slot="primary">
+          <ion-icon slot="icon-only" name="chatboxes"></ion-icon>
+          <ion-label *ngIf="numeroComentarios > 0" class="texto-icono-comentarios">{{ numeroComentarios }}</ion-label>
+      </ion-button>
+      <ion-button (click)="compartirOtros()" slot="end">
+          <ion-icon slot="icon-only" name="share"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-item>
+
+  <ion-item lines="none">
+    <ion-label text-wrap>
+      {{post.mensaje}}
+    </ion-label>
+  </ion-item>
+
+</div>

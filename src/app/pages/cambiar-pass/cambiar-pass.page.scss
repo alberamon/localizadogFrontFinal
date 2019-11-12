@@ -1,0 +1,29 @@
+img {
+    width: 200px;
+    margin: auto;
+    display: block;
+}
+
+.label-pass {
+    text-align: center;
+    font-size: 15px;
+    padding-top: 50px;
+}
+
+.logo {
+    --padding-top: 150px;
+}
+
+.texto-label {
+    font-size: 10px;
+    color: #fd8f6c;
+}
+
+.texto-seguridad {
+    font-size: 14px;
+    color: red;
+}
+
+ion-content {
+    --padding-top: 50px;
+}

@@ -1,0 +1,172 @@
+<ion-content>
+          <ion-item lines="none">
+            <ion-title padding-top>
+                <img src="./assets/logo.png" padding-bottom>
+            </ion-title>
+          </ion-item>     
+
+        <ion-grid fixed>     
+              <form (ngSubmit)="registro( fRegistro )" #fRegistro="ngForm">
+  
+                  <ion-row>
+                      <ion-col>
+                          <ion-list>  
+                            <ion-item>
+                              <ion-input name="nombre"
+                                         #nombre="ngModel"
+                                         type="text"
+                                         placeholder="Nombre"
+                                         [(ngModel)]="registroUsuario.nombre"
+                                         required></ion-input>
+                            </ion-item>
+                            <ion-item *ngIf="nombre.errors" lines="none">
+                                <ion-label class="texto-label">* Campo requerido</ion-label>
+                            </ion-item>
+              
+                            <ion-item>
+                              <ion-input name="apellidos"
+                                         #apellidos="ngModel"
+                                         type="text"
+                                         placeholder="Apellidos"
+                                         [(ngModel)]="registroUsuario.apellidos"
+                                         required></ion-input>
+                            </ion-item>
+                            <ion-item *ngIf="apellidos.errors" lines="none">
+                                <ion-label class="texto-label">* Campo requerido</ion-label>
+                            </ion-item>
+
+                            <ion-item>
+                                <ion-input name="email"
+                                           #email="ngModel"
+                                           type="email"
+                                           inputmode="email"
+                                           pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"
+                                           placeholder="Correo electrónico"
+                                           [(ngModel)]="registroUsuario.email"
+                                           required></ion-input>
+                              </ion-item>
+                              <ion-item *ngIf="email.errors" lines="none">
+                                  <ion-label class="texto-label">* Campo requerido</ion-label>
+                              </ion-item>
+
+                              <ion-item>
+                                  <ion-input name="password"
+                                             type="password"
+                                             inputmode="password"
+                                             pattern="^$|^[A-Za-z0-9]+"
+                                             minlength=4
+                                             maxlength=12
+                                             placeholder="Contraseña"
+                                             [(ngModel)]="registroUsuario.password"
+                                             required></ion-input>
+                              </ion-item>
+
+                              <ion-item>
+                                  <ion-input name="repetirPassword"
+                                             type="password"
+                                             inputmode="password"
+                                             pattern="^$|^[A-Za-z0-9]+"
+                                             minlength=4
+                                             maxlength=12
+                                             placeholder="Repetir contraseña"
+                                             [(ngModel)]="repetirpassword"
+                                             (ionBlur)="comprobarPass()"
+                                             required></ion-input>     
+                              </ion-item>
+                              <ion-item *ngIf="!boolPass" lines="none">
+                                <ion-label class="texto-label">{{ textoPassword }}</ion-label>
+                              </ion-item>
+  
+                            <ion-item>
+                              <ion-label>País</ion-label>
+                              <ion-select selectedText="España" disabled=true [(ngModel)]="registroUsuario.pais" [interfaceOptions]="opcionesSelectPaises" name="pais" placeholder="Seleccione uno" cancel-text='Cancelar' ok-text='Aceptar' mode="ios">
+                                <ion-select-option *ngFor="let pais of paises"><ion-item>{{ pais.nombre }}</ion-item></ion-select-option>
+                              </ion-select>
+                            </ion-item>
+              
+                            <ion-item>
+                              <ion-label>Comunidad Autónoma</ion-label>
+                              <ion-select [(ngModel)]="registroUsuario.comunidad" (ionChange)="onChangeProvincias()" [interfaceOptions]="opcionesSelectComunidades" name="comunidades" placeholder="Seleccione una" cancel-text='Cancelar' ok-text='Aceptar' mode="ios">
+                                <ion-select-option *ngFor="let comunidad of comunidades">{{ comunidad.nombre }}</ion-select-option>
+                              </ion-select>
+                            </ion-item>
+                            <ion-item *ngIf="!boolComunidad" lines="none">
+                                <ion-label class="texto-label">{{ textoCampo }}</ion-label>
+                            </ion-item>
+              
+                            <ion-item>
+                              <ion-label>Provincia</ion-label>
+                              <ion-select [(ngModel)]="registroUsuario.provincia" (ionChange)="onChangeLocalidades()" [interfaceOptions]="opcionesSelectProvincias" name="provincia" placeholder="Seleccione una" cancel-text='Cancelar' ok-text='Aceptar' mode="ios">
+                                <ion-select-option *ngFor="let provincia of provincias">{{ provincia.nombre }}</ion-select-option>
+                              </ion-select>
+                            </ion-item>
+                            <ion-item *ngIf="!boolProvincia" lines="none">
+                                <ion-label class="texto-label">{{ textoCampo }}</ion-label>
+                            </ion-item>
+              
+                            <ion-item>
+                              <ion-label>Localidad</ion-label>
+                              <ion-select [(ngModel)]="registroUsuario.localidad" (ionChange)="onChangeComprobarLocalidad()" [interfaceOptions]="opcionesSelectLocalidades" name="localidad" placeholder="Seleccione una" cancel-text='Cancelar' ok-text='Aceptar' mode="ios">
+                                <ion-select-option *ngFor="let localidad of localidades">{{ localidad.nombre }}</ion-select-option>
+                              </ion-select>
+                            </ion-item>
+                            <ion-item *ngIf="!boolLocalidad" lines="none">
+                                <ion-label class="texto-label">{{ textoCampo }}</ion-label>
+                            </ion-item>
+  
+                              <ion-item lines="none">
+                                <ion-label>Seleccione su foto de perfil:</ion-label>
+                              </ion-item>
+                              <ion-row *ngIf="fotoMostrar !== ''">
+                                  <ion-col>
+                                    <ion-card>
+                                      <img class="foto-perfil" [src]="fotoMostrar | imageSanitizer">
+                                    </ion-card>
+                                  </ion-col>
+                                </ion-row>
+                              <ion-row>
+                                  <ion-col size="6">
+                                    <ion-button expand="full"
+                                                shape="round"
+                                                (click)="abrirCamara()">
+                                      <ion-icon slot="start" name="camera"></ion-icon>
+                                      Cámara
+                                    </ion-button>
+                                  </ion-col>
+                                  <ion-col size="6">
+                                    <ion-button expand="full"
+                                                shape="round"
+                                                (click)="abrirGaleria()">
+                                      <ion-icon slot="start" name="images"></ion-icon>
+                                      Galería
+                                    </ion-button>
+                                  </ion-col>
+                                </ion-row>
+  
+                          </ion-list>
+                      </ion-col>
+                  </ion-row>
+                  
+                  <ion-row padding-top>
+                  <ion-col>
+                      <ion-button type="submit"
+                                  color="primary"
+                                  expand="full"
+                                  shape="round">
+                          Crear usuario
+                      </ion-button>
+                  </ion-col>
+              </ion-row>
+            </form>
+          </ion-grid>
+  
+  <ion-footer no-border padding-bottom>
+    <ion-toolbar>
+        <ion-row class="registro-login" *ngIf="!slideLogin">
+          <ion-col>
+              <ion-label>¿Ya tienes una cuenta? </ion-label>
+            <ion-label (click)="mostrarLogin()" color="primary">Iniciar sesión</ion-label>
+          </ion-col>
+        </ion-row>
+    </ion-toolbar>
+  </ion-footer>

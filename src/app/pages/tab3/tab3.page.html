@@ -1,0 +1,106 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()"
+                  color="danger">
+        <ion-icon slot="icon-only" name="exit"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+  <ion-row class="top-20">
+    
+    <ion-col size="12" text-center>
+      <img [style]="(usuario.fotoPerfil | fotoperfil: usuario.id | domSanitizer)" class="img-perfil">
+      <div>
+        <ion-icon (click)="abrirGaleria()" name="image" size="large" color="primary"></ion-icon>
+        <ion-icon (click)="abrirCamara()" name="camera" size="large" color="primary"></ion-icon>
+      </div>
+    </ion-col>
+
+  </ion-row>
+
+  <ion-row class="top-20">
+    <ion-col size="12" text-center>
+      <ion-label>
+        <h1>Actualizar perfil</h1>
+      </ion-label>
+    </ion-col>
+  </ion-row>
+
+  <form (ngSubmit)="actualizar( fActualizar )" #fActualizar>
+      <ion-row>
+        <ion-col>
+            <ion-list>  
+              <ion-item>
+                <ion-label>Email</ion-label>
+                <ion-input name="email"
+                           type="email"
+                           [(ngModel)]="usuario.email"
+                           required></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Nombre</ion-label>
+                <ion-input name="nombre"
+                           type="text"
+                           [(ngModel)]="usuario.nombre"
+                           required></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Apellidos</ion-label>
+                <ion-input name="apellidos"
+                           type="text"
+                           [(ngModel)]="usuario.apellidos"
+                           required></ion-input>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>País</ion-label>
+                <ion-select [(ngModel)]="usuario.pais" [interfaceOptions]="opcionesSelectPaises" name="pais" placeholder="Selecciona uno" cancel-text='Cancelar' ok-text='Aceptar' mode="ios">
+                  <ion-select-option *ngFor="let pais of paises">{{ pais.nombre }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item *ngIf="usuario.pais === 'España'">
+                <ion-label>Comunidad Autónoma</ion-label>
+                <ion-select [(ngModel)]="usuario.comunidad" (ionChange)="onChangeProvincias()" [interfaceOptions]="opcionesSelectComunidades" name="comunidades" placeholder="Selecciona una" cancel-text='Cancelar' ok-text='Aceptar' mode="ios">
+                  <ion-select-option *ngFor="let comunidad of comunidades">{{ comunidad.nombre }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Provincia</ion-label>
+                <ion-select [(ngModel)]="usuario.provincia" (ionChange)="onChangeLocalidades()" [interfaceOptions]="opcionesSelectProvincias" name="provincia" placeholder="Selecciona una" cancel-text='Cancelar' ok-text='Aceptar' mode="ios">
+                  <ion-select-option *ngFor="let provincia of provincias">{{ provincia.nombre }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Localidad</ion-label>
+                <ion-select [(ngModel)]="usuario.localidad" [interfaceOptions]="opcionesSelectLocalidades" name="localidad" placeholder="Selecciona una" cancel-text='Cancelar' ok-text='Aceptar' mode="ios">
+                  <ion-select-option *ngFor="let localidad of localidades">{{ localidad.nombre }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-list>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col text-center>
+          <ion-button type="submit"
+                      color="tertiary"
+                      shape="round">
+          Actualizar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+
+
+</ion-content>

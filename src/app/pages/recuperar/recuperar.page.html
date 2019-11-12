@@ -1,0 +1,54 @@
+<ion-item lines="none" class="logo">
+  <ion-title>
+    <img src="./assets/logo.png">
+  </ion-title>
+</ion-item>   
+
+<ion-content>
+  <ion-grid fixed> 
+    <form (ngSubmit)="reestablecerPass( fReestablecer )" #fReestablecer="ngForm">
+     <ion-row>
+            <ion-col>   
+                <ion-list>
+                  <ion-item>
+                    <ion-input name="email"
+                               #email="ngModel"
+                               type="email"
+                               inputmode="email"
+                               pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"
+                               placeholder="Introduzca el email de registro"
+                               [(ngModel)]="emailUser"
+                               required></ion-input>
+                  </ion-item>
+                  <ion-item *ngIf="email.errors" lines="none">
+                    <ion-label class="texto-label">* Campo requerido</ion-label>
+                  </ion-item>
+                </ion-list>
+            </ion-col>
+          </ion-row>
+
+          <ion-spinner *ngIf="enviandoEmail"></ion-spinner>
+
+          <ion-row>
+            <ion-col padding-top>
+              <ion-button type="submit"
+                          color="primary"
+                          expand="full"
+                          shape="round"
+                          [disabled]="enviandoEmail">
+                Reestablecer contraseña
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+        </ion-grid>
+
+<ion-footer no-border>
+  <ion-toolbar>
+      <ion-row class="registro-login">
+        <ion-col >
+          <ion-label (click)="mostrarRegistro()" color="primary">Volver a inicio de sesión</ion-label>
+        </ion-col>
+      </ion-row>
+  </ion-toolbar>
+</ion-footer>

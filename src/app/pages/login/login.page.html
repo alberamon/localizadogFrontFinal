@@ -1,0 +1,60 @@
+<ion-item lines="none" class="logo">
+  <ion-title>
+    <img src="./assets/logo.png">
+  </ion-title>
+</ion-item>   
+
+<ion-content>
+  <ion-grid fixed> 
+    <form (ngSubmit)="login( fLogin )" #fLogin="ngForm">
+     <ion-row>
+            <ion-col>   
+                <ion-list>
+                  <ion-item>
+                    <ion-input name="email"
+                               type="email"
+                               inputmode="email"
+                               placeholder="Correo electrónico"
+                               [(ngModel)]="loginUser.email"
+                               required></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-input name="password"
+                               type="password"
+                               inputmode="password"
+                               placeholder="Contraseña"
+                               [(ngModel)]="loginUser.password"
+                               required></ion-input>
+                  </ion-item>
+                  <ion-col>
+                      <ion-label color="primary"
+                                 class="olvida-pass"
+                                 (click)="mostrarRecuperacion()">¿Has olvidado la contraseña?</ion-label>
+                  </ion-col>
+                </ion-list>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col padding-top>
+              <ion-button type="submit"
+                          color="primary"
+                          expand="full"
+                          shape="round">
+                Iniciar sesión
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+        </ion-grid>
+
+<ion-footer no-border>
+  <ion-toolbar>
+      <ion-row class="registro-login">
+        <ion-col >
+          <ion-label>¿No tienes una cuenta? </ion-label>
+          <ion-label (click)="mostrarRegistro()" color="primary">Registrarte</ion-label>
+        </ion-col>
+      </ion-row>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,42 @@
+
+img {
+    width: 200px;
+    margin: auto;
+    display: block;
+}
+
+.olvida-pass {
+    float: right;
+    font-size: 12px;
+    padding-top: 15px;
+}
+
+.registro-login {
+    text-align: center;
+    font-size: 15px;
+    padding-top: 50px;
+}
+
+ion-content {
+    --padding-top: 40px;
+}
+
+.texto-label {
+    font-size: 10px;
+    color: #fd8f6c;
+}
+
+.foto-perfil {
+    width: 100%;
+    height: 100%;
+
+    // background-color: red;
+
+    /* Full height */
+    // height: 100%; 
+
+    /* Imagen centrada y colocada de forma elegante */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
