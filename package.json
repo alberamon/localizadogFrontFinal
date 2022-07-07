@@ -43,7 +43,7 @@
     "cordova-sqlite-storage": "^3.3.0",
     "core-js": "^2.5.4",
     "es6-promise-plugin": "^4.2.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "rm": "^0.1.8",
     "rxjs": "~6.5.1",
     "rxjs-compat": "^6.5.2",
